@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const features = [
   'Free early-access onboarding',
@@ -35,7 +36,7 @@ export function CTA() {
               <span className="gradient-text">Your Business?</span>
             </h2>
             <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
-              Power your business with Mandaleen’s intelligent Arabic-first AI agents—built with the world’s leading platforms.
+              Power your business with Mandaleen's intelligent Arabic-first AI agents—built with the world's leading platforms.
             </p>
           </motion.div>
 
@@ -66,16 +67,23 @@ export function CTA() {
             <Button 
               size="lg"
               className="gradient-bg gradient-hover text-white font-semibold px-10 py-4 text-lg shadow-2xl hover:shadow-orange-500/25 transform hover:scale-105 transition-all duration-300 group"
+              asChild
             >
-              Start Your Free Trial
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+              <Link href="/contact">
+                Get Started
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </Link>
             </Button>
             <Button 
               variant="outline"
               size="lg"
-              className="border-2 border-white/30 hover:border-white text-white hover:bg-white hover:text-gray-900 font-semibold px-10 py-4 text-lg transition-all duration-300"
+              className="border-2 border-white/30 hover:border-white text-white hover:bg-white hover:text-gray-900 font-semibold px-10 py-4 text-lg transition-all duration-300 group"
+              asChild
             >
-              Schedule Demo
+              <Link href="/about">
+                <Users className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                Who Are We?
+              </Link>
             </Button>
           </motion.div>
 
