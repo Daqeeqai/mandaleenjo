@@ -5,10 +5,9 @@ import { ArrowRight, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const features = [
-  'Free 14-day trial',
-  'No credit card required',
-  'Cancel anytime',
-  '24/7 support included'
+  'Free early-access onboarding',
+  'Arabic voice & text understanding',
+  '24/7 multilingual support'
 ];
 
 export function CTA() {
