@@ -95,9 +95,7 @@ export function CTA() {
             transition={{ duration: 0.6, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <p className="text-gray-400 text-sm mb-4">
-              Trusted by industry leaders worldwide
-            </p>
+           
             <div className="flex justify-center items-center space-x-8 opacity-60">
               <div className="text-2xl font-bold">OpenAI</div>
               <div className="text-2xl font-bold">Google</div>
