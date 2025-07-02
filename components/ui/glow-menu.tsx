@@ -2,16 +2,13 @@
 
 import * as React from "react"
 import { motion } from "framer-motion"
-import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
-import { DivideIcon as LucideIcon } from "lucide-react"
+import { LucideIcon } from "lucide-react"
 
 interface MenuItem {
   icon: LucideIcon | React.FC
   label: string
   href: string
-  gradient: string
-  iconColor: string
 }
 
 interface MenuBarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -21,70 +18,39 @@ interface MenuBarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const itemVariants = {
-  initial: { rotateX: 0, opacity: 1 },
-  hover: { rotateX: -90, opacity: 0 },
-}
-
-const backVariants = {
-  initial: { rotateX: 90, opacity: 0 },
-  hover: { rotateX: 0, opacity: 1 },
+  initial: { scale: 1 },
+  hover: { scale: 1.02 },
 }
 
 const glowVariants = {
-  initial: { opacity: 0, scale: 0.8 },
+  initial: { opacity: 0, scale: 0.95 },
   hover: {
     opacity: 1,
-    scale: 2,
+    scale: 1,
     transition: {
-      opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-      scale: { duration: 0.5, type: "spring", stiffness: 300, damping: 25 },
+      duration: 0.2,
+      ease: "easeOut",
     },
   },
 }
 
-const navGlowVariants = {
-  initial: { opacity: 0 },
-  hover: {
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-}
-
-const sharedTransition = {
-  type: "spring",
-  stiffness: 100,
-  damping: 20,
-  duration: 0.5,
+const activeGlowVariants = {
+  initial: { opacity: 1, scale: 1 },
+  hover: { opacity: 1, scale: 1 },
 }
 
 export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
   ({ className, items, activeItem, onItemClick, ...props }, ref) => {
-    const { theme } = useTheme()
-    const isDarkTheme = theme === "dark"
-
     return (
       <motion.nav
         ref={ref}
         className={cn(
-          "p-2 rounded-2xl bg-gradient-to-b from-background/80 to-background/40 backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden",
+          "p-1 rounded-xl bg-white/95 backdrop-blur-lg border border-gray-200/60 shadow-sm relative overflow-hidden",
           className,
         )}
-        initial="initial"
-        whileHover="hover"
         {...props}
       >
-        <motion.div
-          className={`absolute -inset-2 bg-gradient-radial from-transparent ${
-            isDarkTheme
-              ? "via-blue-400/30 via-30% via-purple-400/30 via-60% via-red-400/30 via-90%"
-              : "via-blue-400/20 via-30% via-purple-400/20 via-60% via-red-400/20 via-90%"
-          } to-transparent rounded-3xl z-0 pointer-events-none`}
-          variants={navGlowVariants}
-        />
-        <ul className="flex items-center gap-2 relative z-10">
+        <ul className="flex items-center gap-1 relative z-10">
           {items.map((item) => {
             const Icon = item.icon
             const isActive = item.label === activeItem
@@ -96,71 +62,43 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
                   className="block w-full"
                 >
                   <motion.div
-                    className="block rounded-xl overflow-visible group relative"
-                    style={{ perspective: "600px" }}
+                    className="block rounded-lg overflow-hidden group relative"
                     whileHover="hover"
                     initial="initial"
+                    variants={itemVariants}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                    <motion.div
-                      className="absolute inset-0 z-0 pointer-events-none"
-                      variants={glowVariants}
-                      animate={isActive ? "hover" : "initial"}
-                      style={{
-                        background: item.gradient,
-                        opacity: isActive ? 1 : 0,
-                        borderRadius: "16px",
-                      }}
-                    />
-                    <motion.div
-                      className={cn(
-                        "flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent transition-colors rounded-xl",
-                        isActive
-                          ? "text-foreground"
-                          : "text-muted-foreground group-hover:text-foreground",
-                      )}
-                      variants={itemVariants}
-                      transition={sharedTransition}
-                      style={{
-                        transformStyle: "preserve-3d",
-                        transformOrigin: "center bottom",
-                      }}
-                    >
-                      <span
-                        className={cn(
-                          "transition-colors duration-300",
-                          isActive ? item.iconColor : "text-foreground",
-                          `group-hover:${item.iconColor}`,
-                        )}
-                      >
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <span>{item.label}</span>
-                    </motion.div>
+                    {/* Active background */}
+                    {isActive && (
+                      <motion.div
+                        className="absolute inset-0 z-0 bg-gradient-to-r from-[#FF7A00] to-[#FF4500] rounded-lg"
+                        variants={activeGlowVariants}
+                        initial="initial"
+                        animate="hover"
+                      />
+                    )}
+                    
+                    {/* Hover background */}
+                    {!isActive && (
+                      <motion.div
+                        className="absolute inset-0 z-0 bg-gradient-to-r from-[#FF7A00]/10 to-[#FF4500]/10 rounded-lg"
+                        variants={glowVariants}
+                      />
+                    )}
+
                     <motion.div
                       className={cn(
-                        "flex items-center gap-2 px-4 py-2 absolute inset-0 z-10 bg-transparent transition-colors rounded-xl",
+                        "flex items-center gap-2 px-4 py-2.5 relative z-10 transition-colors duration-200 rounded-lg",
                         isActive
-                          ? "text-foreground"
-                          : "text-muted-foreground group-hover:text-foreground",
+                          ? "text-white"
+                          : "text-gray-600 group-hover:text-[#FF7A00]",
                       )}
-                      variants={backVariants}
-                      transition={sharedTransition}
-                      style={{
-                        transformStyle: "preserve-3d",
-                        transformOrigin: "center top",
-                        rotateX: 90,
-                      }}
                     >
-                      <span
-                        className={cn(
-                          "transition-colors duration-300",
-                          isActive ? item.iconColor : "text-foreground",
-                          `group-hover:${item.iconColor}`,
-                        )}
-                      >
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <span>{item.label}</span>
+                      <Icon className={cn(
+                        "h-4 w-4 transition-colors duration-200",
+                        isActive ? "text-white" : "text-gray-500 group-hover:text-[#FF7A00]"
+                      )} />
+                      <span className="text-sm font-medium">{item.label}</span>
                     </motion.div>
                   </motion.div>
                 </button>
