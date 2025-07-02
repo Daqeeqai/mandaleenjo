@@ -1,0 +1,5 @@
+Remove these files as part of removing the customers page and related components:
+- app/customers/page.tsx
+- components/sections/CustomersHero.tsx
+- components/sections/CustomerLogos.tsx
+- components/sections/CustomerStories.tsx
