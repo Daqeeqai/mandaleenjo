@@ -77,7 +77,7 @@ export function CTA() {
             <Button 
               variant="outline"
               size="lg"
-              className="border-2 border-white/30 hover:border-white text-white hover:bg-white hover:text-gray-900 font-semibold px-10 py-4 text-lg transition-all duration-300 group"
+              className="bg-white border-2 border-white text-gray-900 hover:bg-gray-100 hover:border-gray-200 font-semibold px-10 py-4 text-lg transition-all duration-300 group shadow-lg hover:shadow-xl"
               asChild
             >
               <Link href="/about">
