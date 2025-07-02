@@ -4,15 +4,47 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Home, User, Package, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { MenuBar } from '@/components/ui/glow-menu';
 import { cn } from '@/lib/utils';
 
 const navigation = [
-	{ name: 'Home', href: '/' },
-	{ name: 'About', href: '/about' },
-	{ name: 'Product', href: '/product' },
-	{ name: 'Contact', href: '/contact' },
+	{ name: 'Home', href: '/', icon: Home },
+	{ name: 'About', href: '/about', icon: User },
+	{ name: 'Product', href: '/product', icon: Package },
+	{ name: 'Contact', href: '/contact', icon: MessageSquare },
+];
+
+const menuItems = [
+	{
+		icon: Home,
+		label: 'Home',
+		href: '/',
+		gradient: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)',
+		iconColor: 'text-blue-500',
+	},
+	{
+		icon: User,
+		label: 'About',
+		href: '/about',
+		gradient: 'radial-gradient(circle, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.06) 50%, rgba(21,128,61,0) 100%)',
+		iconColor: 'text-green-500',
+	},
+	{
+		icon: Package,
+		label: 'Product',
+		href: '/product',
+		gradient: 'radial-gradient(circle, rgba(249,115,22,0.15) 0%, rgba(234,88,12,0.06) 50%, rgba(194,65,12,0) 100%)',
+		iconColor: 'text-orange-500',
+	},
+	{
+		icon: MessageSquare,
+		label: 'Contact',
+		href: '/contact',
+		gradient: 'radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)',
+		iconColor: 'text-red-500',
+	},
 ];
 
 export function Header() {
@@ -28,6 +60,18 @@ export function Header() {
 		window.addEventListener('scroll', handleScroll);
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
+
+	const getActiveItem = () => {
+		const currentItem = menuItems.find(item => item.href === pathname);
+		return currentItem?.label || 'Home';
+	};
+
+	const handleMenuItemClick = (label: string) => {
+		const item = menuItems.find(item => item.label === label);
+		if (item) {
+			window.location.href = item.href;
+		}
+	};
 
 	return (
 		<motion.header
@@ -57,29 +101,14 @@ export function Header() {
 						</span>
 					</Link>
 
-					{/* Desktop Navigation */}
-					<div className="hidden lg:flex items-center space-x-8">
-						{navigation.map((item) => (
-							<Link
-								key={item.name}
-								href={item.href}
-								className={cn(
-									'relative text-sm font-medium transition-colors duration-300 hover:text-[#FF7A00] focus-ring rounded-md px-3 py-2',
-									pathname === item.href
-										? 'text-[#FF7A00]'
-										: 'text-gray-700 hover:text-[#FF7A00]'
-								)}
-							>
-								{item.name}
-								{pathname === item.href && (
-									<motion.div
-										className="absolute -bottom-1 left-0 right-0 h-0.5 gradient-bg rounded-full"
-										layoutId="navbar-indicator"
-										transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-									/>
-								)}
-							</Link>
-						))}
+					{/* Desktop Navigation - Glow Menu */}
+					<div className="hidden lg:flex items-center">
+						<MenuBar
+							items={menuItems}
+							activeItem={getActiveItem()}
+							onItemClick={handleMenuItemClick}
+							className="bg-white/90 backdrop-blur-lg border border-gray-200/50 shadow-lg"
+						/>
 					</div>
 
 					{/* CTA Button */}
