@@ -36,8 +36,7 @@ export function CTA() {
               <span className="gradient-text">Your Business?</span>
             </h2>
             <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
-              Join thousands of companies that have revolutionized their operations 
-              with Mandaleen's cutting-edge technology solutions.
+              Power your business with Mandaleen’s intelligent Arabic-first AI agents—built with the world’s leading platforms.
             </p>
           </motion.div>
 
