@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Briefcase, RefreshCw, Handshake, PhoneCall } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const stats = [
 	{
@@ -101,13 +103,15 @@ export function Stats() {
 						Ready to join our early access program and transform your customer
 						conversations?
 					</p>
-					<motion.button
-						className="gradient-bg text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-						whileHover={{ scale: 1.05 }}
-						whileTap={{ scale: 0.95 }}
+					<Button
+						size="lg"
+						className="gradient-bg gradient-hover text-white font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+						asChild
 					>
-						Request Early Access
-					</motion.button>
+						<Link href="/contact">
+							Book a Demo
+						</Link>
+					</Button>
 				</motion.div>
 			</div>
 		</section>
