@@ -4,7 +4,7 @@ import * as React from "react"
 import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
-import { LucideIcon } from "lucide-react"
+import { DivideIcon as LucideIcon } from "lucide-react"
 
 interface MenuItem {
   icon: LucideIcon | React.FC
