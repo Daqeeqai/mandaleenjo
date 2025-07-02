@@ -99,10 +99,13 @@ export function CTA() {
               Trusted by industry leaders worldwide
             </p>
             <div className="flex justify-center items-center space-x-8 opacity-60">
-              <div className="text-2xl font-bold">Microsoft</div>
+              <div className="text-2xl font-bold">OpenAI</div>
               <div className="text-2xl font-bold">Google</div>
-              <div className="text-2xl font-bold">Amazon</div>
-              <div className="text-2xl font-bold">Apple</div>
+              <div className="text-2xl font-bold">n8n</div>
+              <div className="text-2xl font-bold">Langchain</div>
+              <div className="text-2xl font-bold">WhatsApp</div>
+              <div className="text-2xl font-bold">Instagram</div>
+              <div className="text-2xl font-bold">Facebook</div>
             </div>
           </motion.div>
         </div>
